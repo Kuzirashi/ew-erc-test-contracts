@@ -13,7 +13,7 @@ describe('deployTests', () => {
 
     it('should deploy the ERC20 Test-Token', async () => {
 
-        const tx = (await deployERC20TestToken(web3, accountDeployment, privateKeyDeployment));
+        const tx = (await deployERC20TestToken(web3, accountDeployment, 100000000000, privateKeyDeployment));
 
         assert.notEqual(tx.contractAddress, null);
     });

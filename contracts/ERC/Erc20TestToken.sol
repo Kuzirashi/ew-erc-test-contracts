@@ -34,10 +34,16 @@ contract Erc20TestToken is ERC20Interface {
         _;
     }
 
-    constructor(address _testaccount) public {
+    constructor(address _testaccount, uint _startingBalance) public {
         owner = msg.sender;
-        balances[owner] = totalSupplyNumber - 1000000;
-        balances[_testaccount] = 1000000;
+        uint startingBalance = _startingBalance;
+
+        if (_startingBalance <= 0) {
+            startingBalance = 1000000;
+        }
+
+        balances[owner] = totalSupplyNumber - startingBalance;
+        balances[_testaccount] = startingBalance;
     }
 
     function name() public view returns (string memory) {

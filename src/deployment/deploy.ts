@@ -7,7 +7,8 @@ import { Erc20TestTokenJSON, Erc721TestReceiverJSON } from '..';
 export async function deployERC20TestToken(
     web3: Web3,
     testaccount: string,
-    deployKey: string,
+    startingBalance: number,
+    deployKey: string
 ): Promise<TransactionReceipt> {
     const privateKeyDeployment = deployKey.startsWith('0x') ?
         deployKey : '0x' + deployKey;
@@ -15,7 +16,8 @@ export async function deployERC20TestToken(
     return deploy(
         web3,
         Erc20TestTokenJSON.bytecode +
-        web3.eth.abi.encodeParameter('address', testaccount).substr(2),
+        web3.eth.abi.encodeParameter('address', testaccount).substr(2) + 
+        web3.eth.abi.encodeParameter('uint', startingBalance).substr(2),
         { privateKey: privateKeyDeployment },
     );
 }
