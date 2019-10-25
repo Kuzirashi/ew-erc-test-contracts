@@ -8,7 +8,8 @@ export async function deployERC20TestToken(
     web3: Web3,
     testaccount: string,
     startingBalance: number,
-    deployKey: string
+    deployKey: string,
+    gasPrice?: string
 ): Promise<TransactionReceipt> {
     const privateKeyDeployment = deployKey.startsWith('0x') ?
         deployKey : '0x' + deployKey;
@@ -18,7 +19,7 @@ export async function deployERC20TestToken(
         Erc20TestTokenJSON.bytecode +
         web3.eth.abi.encodeParameter('address', testaccount).substr(2) + 
         web3.eth.abi.encodeParameter('uint', startingBalance).substr(2),
-        { privateKey: privateKeyDeployment },
+        { privateKey: privateKeyDeployment, gasPrice },
     );
 }
 
